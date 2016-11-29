@@ -225,6 +225,32 @@ bool search(int *const transactionTrits, int length, const int minWeightMagnitud
 	return interrupted;
 }
 
+void getRandomTrits (int *RandomTrits, int length){
+
+	int i = 0;
+
+	//int RandomTrits[length];
+
+	srand(time(NULL));
+
+	while (i < length) {
+
+		char RandomTrit = rand() % 3;
+
+		if (RandomTrit == 0)
+			RandomTrits[i] = -1;
+		if (RandomTrit == 1)
+			RandomTrits[i] = 0;
+		if (RandomTrit == 2)
+			RandomTrits[i] = 1;
+		i++;
+	}
+
+	for(i = 0; i < length; i++)
+		printf("%d", RandomTrits[i]);
+
+	//return RandomTrits;
+}
 
 //*/
 //Tests
@@ -243,13 +269,18 @@ int main()
     //printf("Running Test on [0]: %s %d\n", run_test (0)  ==0 ? "PASS": "FAIL", run_test(0));
     //printf("Running Test on [1]: %s %d\n", run_test (1)  ==0 ? "PASS": "FAIL", run_test(1));
 
-	int transactionTrits[8] = {0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88};
+	//int transactionTrits[8] = {0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88};
 
-	bool out;
+	//bool out;
 
-	out = search(transactionTrits, 8, 8, 1);
+	//out = search(transactionTrits, 8, 8, 1);
 
-    return 0;
+	int length = 8091;
+	int RandomTrits[length];
+
+	getRandomTrits (RandomTrits, length);
+	
+    	return 0;
 }
 
 //*/
