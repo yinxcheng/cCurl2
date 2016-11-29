@@ -7,6 +7,7 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <time.h>
 
 #define Invalid_transaction_trits_length 0x63
 #define Invalid_min_weight_magnitude 0x64
