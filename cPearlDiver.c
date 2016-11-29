@@ -95,18 +95,19 @@ static void increment(long *const midStateCopyLow, long *const midStateCopyHigh,
 
 bool search(int *const transactionTrits, int length, const int minWeightMagnitude, int numberOfThreads) {
 
-	long midStateLow[STATE_LENGTH];
-	long midStateHigh[STATE_LENGTH];
 	int i, j;
 	int offset = 0;
-	long scratchpadLow[STATE_LENGTH];
-	long scratchpadHigh[STATE_LENGTH];
-	int threadIndex;
-	long midStateCopyLow[STATE_LENGTH];
-	long midStateCopyHigh[STATE_LENGTH];
-	long stateLow[STATE_LENGTH];
-	long stateHigh[STATE_LENGTH];
 	int bitIndex;
+	int threadIndex;
+
+	long scratchpadLow[243*3];
+	long scratchpadHigh[243*3];
+	long midStateCopyLow[243*3];
+	long midStateCopyHigh[243*3];
+	long stateLow[243*3];
+	long stateHigh[243*3];
+	long midStateLow[243*3];
+	long midStateHigh[243*3];
 
 	if (length != TRANSACTION_LENGTH) {
 
@@ -196,7 +197,7 @@ bool search(int *const transactionTrits, int length, const int minWeightMagnitud
 			memcpy( stateHigh, midStateCopyHigh, STATE_LENGTH);
 			transform(stateLow, stateHigh, scratchpadLow, scratchpadHigh);
 
-		NEXT_BIT_INDEX:
+		//NEXT_BIT_INDEX:
 			for (bitIndex = 64; bitIndex-- > 0; ) {
 
 				for (i = minWeightMagnitude; i-- > 0; ) {
@@ -214,7 +215,8 @@ bool search(int *const transactionTrits, int length, const int minWeightMagnitud
 					nonceFound = true;
 				}
 				break;
-
+				NEXT_BIT_INDEX:
+				;
 			}
 		}
 		pthread_mutex_unlock(&new_thread_search);
@@ -277,7 +279,7 @@ int main()
 	//out = search(transactionTrits, 8, 8, 1);
 
 	int length = 8091;
-	int RandomTrits[length];
+	int RandomTrits[8091];
 
 	getRandomTrits (RandomTrits, length);
 	
