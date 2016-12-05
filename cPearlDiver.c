@@ -46,8 +46,8 @@ inline void transform( long *const stateLow, long *const stateHigh, long *const 
 	//for (int round = 27; round-- > 0; ) {
 		//memcpy(stateLow, scratchpadLow, STATE_LENGTH);
 		//memcpy(stateHigh, scratchpadHigh, STATE_LENGTH);
-		memcpy( scratchpadLow, stateLow, STATE_LENGTH);
-		memcpy( scratchpadHigh, stateHigh, STATE_LENGTH);
+		memcpy( scratchpadLow, stateLow, STATE_LENGTH * sizeof(long));
+		memcpy( scratchpadHigh, stateHigh, STATE_LENGTH * sizeof(long));
 
 		//for (int stateIndex = 0; stateIndex < STATE_LENGTH; stateIndex++) {
 		for (stateIndex = 0; stateIndex < STATE_LENGTH; stateIndex++) {
@@ -190,8 +190,8 @@ bool search(int *const transactionTrits, int length, const int minWeightMagnitud
 	while (numberOfThreads-- > 0) {
 		threadIndex = numberOfThreads;
 		pthread_mutex_lock(&new_thread_search);
-		memcpy(midStateCopyLow, midStateLow, STATE_LENGTH);
-		memcpy(midStateCopyHigh, midStateHigh, STATE_LENGTH);
+		memcpy(midStateCopyLow, midStateLow, STATE_LENGTH * sizeof(long));
+		memcpy(midStateCopyHigh, midStateHigh, STATE_LENGTH * sizeof(long));
 		for (i = threadIndex; i-- > 0; ) {
 
 			increment(midStateCopyLow, midStateCopyHigh, HASH_LENGTH / 3, (HASH_LENGTH / 3) * 2);
@@ -200,8 +200,8 @@ bool search(int *const transactionTrits, int length, const int minWeightMagnitud
 		while (!finished) {
 
 			increment(midStateCopyLow, midStateCopyHigh, (HASH_LENGTH / 3) * 2, HASH_LENGTH);
-			memcpy( stateLow, midStateCopyLow, STATE_LENGTH);
-			memcpy( stateHigh, midStateCopyHigh, STATE_LENGTH);
+			memcpy( stateLow, midStateCopyLow, STATE_LENGTH * sizeof(long));
+			memcpy( stateHigh, midStateCopyHigh, STATE_LENGTH * sizeof(long));
 			transform(stateLow, stateHigh, scratchpadLow, scratchpadHigh);
 
 		//NEXT_BIT_INDEX:
